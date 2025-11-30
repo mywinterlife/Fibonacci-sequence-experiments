@@ -1,113 +1,159 @@
-# Java Project Template
+# Fibonacci Sequence Experiments
 
-Clean, reusable starter template for Java projects in IntelliJ.  
-Designed for clear object-oriented development with a familiar, organized layout.
-
-This template includes:
-
-- Standard Java `src/` layout  
-- Organized package structure (Enums, Interfaces, ObjectClasses, Participants, ExecutableClasses)  
-- A starter `Program.java` with a runnable `main` method  
-- A `.gitignore` customized for IntelliJ + Java  
-- MIT License  
-- Simple, readable OOP folder separation  
-
-This structure is inspired by practical patterns used in real projects  
-(e.g., card games, simulations, automation frameworks, and service managers).
+A small Java project exploring different approaches to generating and analyzing the Fibonacci sequence.  
+Built using the **Java Project Template** for clean structure, clarity, and ease of expansion.
 
 ---
 
-## Running the Program
+## Project Purpose
 
-Open IntelliJ and run:
-src/ExecutableClasses/Program.java
+This repository serves as a sandbox for learning, experimenting, and comparing:
 
+- Iterative vs. recursive Fibonacci generation  
+- Performance differences between approaches  
+- Memoization techniques  
+- Edge-case handling  
+- Printing sequences and exploring patterns  
 
-It contains a basic `main` method you can replace or rename as your project evolves.
-
----
-
-## Using This Template
-
-1. Click **Use this template** at the top of the repository on GitHub.
-2. Select **Create a new repository**.
-3. Name your project (e.g., `MyProject`, `InventorySystem`, `GameEngine`, etc.).
-4. Clone the new repository:
-   - **IntelliJ IDEA > Get from VCS > paste your repo URL**
-5. IntelliJ will automatically detect:
-   - `src/` as the source root  
-   - Pre-built package structure  
-   - `Program.java` as a valid entry point  
-
-You can begin coding immediately.
+It’s designed to help reinforce core Java fundamentals (loops, conditionals, methods, classes) while creating a reusable project structure that will support future algorithm-based explorations.
 
 ---
 
-## Project Structure
-src/
-ExecutableClasses/
-Program.java
-Enums/
-.gitkeep
-Interfaces/
-.gitkeep
-ObjectClasses/
-.gitkeep
-Participants/
-.gitkeep
+## Project Structure (Template Overview)
 
-.gitignore
-LICENSE
-README.md
+This project uses a reusable **Java Project Template**, which provides a clean, standardized layout:
 
-
----
-
-## Recommended Usage
-
-Use this template for any new Java project, including:
-
-- School assignments  
-- Personal Java practice  
-- Automation framework prototypes  
-- OOP learning exercises  
-- Game engines  
-- Utility scripts  
-- Technical assessments  
-
-### Why this structure?
-
-It supports clean separation of concerns:
-
-- **Enums** — constants and enumerations  
-- **Interfaces** — abstractions for shared behavior  
-- **ObjectClasses** — concrete implementations, models, utilities  
-- **Participants** — role-based entities (e.g., Player, Dealer)  
-- **ExecutableClasses** — classes with `main()` or runnable entry points  
+```text
+Fibonacci-sequence-experiments/
+  ├─ src/
+  │  ├─ main/
+  │  │  └─ java/
+  │  │     └─ <package>/
+  │  │        ├─ Main.java
+  │  │        └─ FibonacciService.java   (or similar logic classes)
+  │  └─ test/
+  │     └─ java/
+  │        └─ <package>/                 (future JUnit tests)
+  ├─ .gitignore
+  ├─ README.md
+  └─ pom.xml or build.gradle (if/when added)
 
 ---
 
-## IntelliJ Notes
+**The template provides:**
+Consistent folder layout
+Simple entry point (Main)
+Separation of concerns for logic classes
+Space for future unit tests
+Ready for IntelliJ import without configuration issues
 
-This template is optimized for IntelliJ IDEA:
+Features (Current & Planned)
+Current
+Generate the Fibonacci sequence up to N
+Basic iterative approach
+Basic recursive approach
+Printing sequence to console
 
-- `.idea/` is excluded via `.gitignore`
-- `.iml` files are ignored
-- `out/` (compiler output) is excluded
-- `src/` is automatically recognized as the source root
+Upcoming Enhancements
+Memoized/DP version
+Performance comparison output
+Input validation
+Command-line arguments
+Export sequence to file
+JUnit tests using the template’s /test structure
 
-**Just clone > open > code.**
+How to Run
+You can run the project directly in IntelliJ:
+Clone the repository
+Open the folder in IntelliJ using Open
+Ensure JDK 17 (Temurin) is selected
+Run Main.java
+
+Learning Objectives
+This project is part of an ongoing study path focusing on:
+Java fundamentals (methods, loops, classes)
+Algorithmic thinking
+Clean coding habits
+Using IntelliJ efficiently
+Managing projects using GitHub templates
+Preparing for automation and SDET roles
+
+Contributing (Future)
+
+This repo is primarily for personal learning, but suggestions or improvements are welcome via Issues or Pull Requests.
+
+License
+
+MIT License — see LICENSE for details.
 
 ---
 
-## License
+**Example(s):**
 
-This project is licensed under the MIT License.  
-You may freely use, modify, and distribute this template.
+**Iterative Implementation (Example)**
+public long fibIterative(int n) {
+    if (n < 0) throw new IllegalArgumentException("n must be non-negative");
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+
+    long prev = 0;
+    long curr = 1;
+
+    for (int i = 2; i <= n; i++) {
+        long next = prev + curr;
+        prev = curr;
+        curr = next;
+    }
+
+    return curr;
+}
 
 ---
 
-## Contributing
+**Recursive Implementation (Example)**
+public long fibRecursive(int n) {
+    if (n < 0) throw new IllegalArgumentException("n must be non-negative");
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+    return fibRecursive(n - 1) + fibRecursive(n - 2);
+}
 
-If you customize this template for your own workflow, feel free to fork it or submit suggestions.
+---
 
+**Memoized Implementation (Example Sketch)**
+private final Map<Integer, Long> cache = new HashMap<>();
+
+public long fibMemoized(int n) {
+    if (n < 0) throw new IllegalArgumentException("n must be non-negative");
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+
+    if (cache.containsKey(n)) {
+        return cache.get(n);
+    }
+
+    long value = fibMemoized(n - 1) + fibMemoized(n - 2);
+    cache.put(n, value);
+    return value;
+}
+
+---
+
+Recursion vs Iteration — Comparison Table
+| Aspect                 | Iterative Approach                 | Recursive Approach                               |
+| ---------------------- | ---------------------------------- | ------------------------------------------------ |
+| Conceptual simplicity  | Straightforward loop               | Very close to the mathematical definition        |
+| Performance (time)     | O(n)                               | O(2ⁿ) without memoization                        |
+| Performance (space)    | O(1) additional space              | O(n) stack depth                                 |
+| Risk of stack overflow | None (for reasonable `n`)          | Possible for large `n`                           |
+| Ease of debugging      | Easy to step through in a loop     | Requires understanding recursive call stack      |
+| Code length            | Usually slightly longer            | Often shorter and more “elegant”                 |
+| When to use            | When performance and safety matter | When clarity or teaching the concept is the goal |
+
+
+
+
+
+
+
+Run Main.java
